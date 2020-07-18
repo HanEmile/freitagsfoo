@@ -1,0 +1,22 @@
+# logging verbosity leve (1-7) 1=panic, 7=trace
+verbose:
+    level: 6
+
+# Host information (ip to bind to and port to listen on)
+server:
+    host: "0.0.0.0"
+    port: "8085"
+
+# The database that should be accessed 
+db:
+    addr: "postgres:5432"
+    user: "postgres"
+    password: "postgres"
+    database: "postgres"
+
+# Enable the http frontend
+frontend: true
+
+# the path at which the uploaded slides are stored
+# (trailing slash expected)
+uploadpath: "./uploads/"

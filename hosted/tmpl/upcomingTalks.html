@@ -1,0 +1,41 @@
+{{ define "upcomingTalks" }}
+            <div class="container mt-5">
+                <h2>Upcoming talks: {{ .upcomingCount }}</h2>
+                <hr>
+                <div class="row">
+                    <div class="row row-cols-1 row-cols-md-3">
+                        {{ range $i, $talk := .upcomingTalks }}
+                        <div class="col mb-3">
+                            <div class="card h-100">
+                                <div class="card-header">
+                                    <h5 class="card-title">{{ $talk.Title }}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">{{ $talk.Description }}</p>
+                                    <a href="/talk/{{ $talk.UUID }}" class="btn btn-primary">Details</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div class="row">
+                                        <div class="col text-left">
+                                            {{ $talk.FormattedDate }}
+                                        </div>
+                                        <div class="col text-right">
+                                            {{ $talk.Nickname }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{ end }}
+                    </div>
+
+                    {{ if .All }}
+                    {{ else }}
+                    <div class="text-right mt-3">
+                        <a href="/upcoming" class="link-secondary">view all</a>
+                    </div>
+                    {{ end }}
+                </div>
+                <hr>
+            </div>
+{{ end }}
