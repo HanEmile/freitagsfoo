@@ -22,7 +22,7 @@ func InsertTalk(db *pg.DB, talk *structs.Talk) error {
 // UpcomingTalksLimited returns the next 3 upcoming talks
 func UpcomingTalksLimited(db *pg.DB) ([]structs.Talk, error) {
 	var talks []structs.Talk
-	err := db.Model(&talks).Order("date DESC").Where("date > ?", time.Now()).Limit(3).Select()
+	err := db.Model(&talks).Order("date ASC").Where("date > ?", time.Now()).Limit(3).Select()
 	if err != nil {
 		return []structs.Talk{}, fmt.Errorf("could not get the talks from the db: %s", err)
 	}
@@ -33,7 +33,7 @@ func UpcomingTalksLimited(db *pg.DB) ([]structs.Talk, error) {
 // UpcomingTalks returns the next upcoming talks
 func UpcomingTalks(db *pg.DB) ([]structs.Talk, error) {
 	var talks []structs.Talk
-	err := db.Model(&talks).Order("date DESC").Where("date > ?", time.Now()).Select()
+	err := db.Model(&talks).Order("date ASC").Where("date > ?", time.Now()).Select()
 	if err != nil {
 		return []structs.Talk{}, fmt.Errorf("could not get the talks from the db: %s", err)
 	}
