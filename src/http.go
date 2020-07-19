@@ -19,7 +19,10 @@ func initHTTPServer() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", indexHandler).Methods("GET")
 	r.HandleFunc("/upcoming", upcomingHandler).Methods("GET")
+<<<<<<< HEAD
 	r.HandleFunc("/past", pastHandler).Methods("GET")
+=======
+>>>>>>> refs/remotes/origin/master
 	r.HandleFunc("/propose", proposeHandler).Methods("GET")
 	r.HandleFunc("/talk/{uuid}", talkHandler).Methods("GET")
 
@@ -60,32 +63,42 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		logrus.Warn(err)
 		return
 	}
+<<<<<<< HEAD
 	// fetch the last three talks
 	lastThreeTalks, err := db.PastTalksLimited(pgdb)
 	if err != nil {
 		logrus.Warn(err)
 		return
 	}
+=======
+>>>>>>> refs/remotes/origin/master
 
 	upcomingCount, err := db.CountUpcomingTalks(pgdb)
 	if err != nil {
 		logrus.Warn(err)
 		return
 	}
+<<<<<<< HEAD
 	pastCount, err := db.CountPastTalks(pgdb)
 	if err != nil {
 		logrus.Warn(err)
 		return
 	}
+=======
+>>>>>>> refs/remotes/origin/master
 
 	content := map[string]interface{}{
 		"upcomingTalks": firstThreeTalks,
 		"upcomingCount": upcomingCount,
+<<<<<<< HEAD
 
 		"pastTalks": lastThreeTalks,
 		"pastCount": pastCount,
 
 		"All": false,
+=======
+		"All":           false,
+>>>>>>> refs/remotes/origin/master
 	}
 
 	// define a template
@@ -108,7 +121,11 @@ func upcomingHandler(w http.ResponseWriter, r *http.Request) {
 	defer db.Disconnect(pgdb)
 
 	// fetch the next talks
+<<<<<<< HEAD
 	upcomingTalks, err := db.UpcomingTalks(pgdb)
+=======
+	firstThreeTalks, err := db.UpcomingTalks(pgdb)
+>>>>>>> refs/remotes/origin/master
 	if err != nil {
 		logrus.Warn(err)
 		return
@@ -121,7 +138,11 @@ func upcomingHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	content := map[string]interface{}{
+<<<<<<< HEAD
 		"upcomingTalks": upcomingTalks,
+=======
+		"upcomingTalks": firstThreeTalks,
+>>>>>>> refs/remotes/origin/master
 		"upcomingCount": upcomingCount,
 		"All":           true,
 	}
@@ -141,6 +162,7 @@ func upcomingHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+<<<<<<< HEAD
 func pastHandler(w http.ResponseWriter, r *http.Request) {
 	pgdb := db.Connect()
 	defer db.Disconnect(pgdb)
@@ -179,6 +201,8 @@ func pastHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+=======
+>>>>>>> refs/remotes/origin/master
 func proposeHandler(w http.ResponseWriter, r *http.Request) {
 
 	// find the date of the next friday
