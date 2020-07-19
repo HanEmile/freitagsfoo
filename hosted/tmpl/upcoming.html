@@ -1,0 +1,31 @@
+{{define "upcoming"}}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        {{ template "stylesheets" . }}
+        <title>Freitagsfoo</title>
+    </head>
+
+    <body>
+        <main role="main">
+
+            <div class="container-fluid bg-success text-white p-5">
+                <div class="container">
+                    <h1 class="display-3">
+                        <a href="/" class="text-decoration-none text-white">Freitagsfoo!</a>
+                    </h1>
+                    <p><a class="btn btn-primary btn-lg" href="/propose" role="button">Propose a talk &raquo;</a></p>
+                </div>
+            </div>
+
+            {{ template "upcomingTalks" . }}
+
+        </main>
+    </body>
+
+</html>
+{{end}}
