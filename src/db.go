@@ -69,7 +69,7 @@ func createSomeTalks(pgdb *pg.DB) {
 
 		talk := &structs.Talk{
 			UUID:          uuid.New(),
-			Title:         fmt.Sprintf("Wie baut man eigentlich Raketen ohne Brennstoff nr. %d", i),
+			Title:         fmt.Sprintf("Wie baut man eigentlich Raketen ohne Brennstoff? nr. %d", i),
 			Description:   fmt.Sprintf("Sunt rerum illo corrupti. Similique qui rem debitis. Accusamus et rerum sint et amet eos nemo. Et enim omnis et. Tempora et corrupti aut ea et vel. \n Dolor est quae sed molestiae nisi esse aliquid atque. Voluptas vero et ducimus voluptatem in eaque. Quo illum et delectus vel sed molestias quidem. Consequuntur unde dolores quis sunt exercitationem eos et provident. Animi eaque temporibus alias. %d", i),
 			Slides:        "./uploads/black.png",
 			Nickname:      nicknames[rand.Intn(len(nicknames))],
