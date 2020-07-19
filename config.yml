@@ -1,10 +1,6 @@
 # logging verbosity leve (1-7) 1=panic, 7=trace
 verbose:
-<<<<<<< HEAD
     level: 7
-=======
-    level: 6
->>>>>>> refs/remotes/origin/master
 
 # Host information (ip to bind to and port to listen on)
 server:
@@ -13,11 +9,7 @@ server:
 
 # The database that should be accessed 
 db:
-<<<<<<< HEAD
-    addr: "localhost:5432"
-=======
     addr: "postgres:5432"
->>>>>>> refs/remotes/origin/master
     user: "postgres"
     password: "postgres"
     database: "postgres"

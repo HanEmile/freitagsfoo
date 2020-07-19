@@ -61,31 +61,19 @@ func createSomeTalks(pgdb *pg.DB) {
 		"Bombur",
 	}
 	for i := 0; i < 10; i++ {
-<<<<<<< HEAD
 
 		date := time.Now().Add(-3 * 7 * 24 * time.Hour).Add(time.Duration(i) * 7 * 24 * time.Hour)
-=======
-		date := time.Now().Add(time.Duration(i) * 7 * 24 * time.Hour)
->>>>>>> refs/remotes/origin/master
 
 		layout := "2006-01-02"
 		formattedDate := date.Format(layout)
 
 		talk := &structs.Talk{
 			UUID:          uuid.New(),
-<<<<<<< HEAD
 			Title:         fmt.Sprintf("Wie baut man eigentlich Raketen ohne Brennstoff? nr. %d", i),
 			Description:   fmt.Sprintf("Sunt rerum illo corrupti. Similique qui rem debitis. Accusamus et rerum sint et amet eos nemo. Et enim omnis et. Tempora et corrupti aut ea et vel. \n Dolor est quae sed molestiae nisi esse aliquid atque. Voluptas vero et ducimus voluptatem in eaque. Quo illum et delectus vel sed molestias quidem. Consequuntur unde dolores quis sunt exercitationem eos et provident. Animi eaque temporibus alias. %d", i),
 			Slides:        "./uploads/black.png",
 			Nickname:      nicknames[rand.Intn(len(nicknames))],
 			Date:          date,
-=======
-			Title:         fmt.Sprintf("Wie baut man eigentlich Raketen ohne Brennstoff nr. %d", i),
-			Description:   fmt.Sprintf("Sunt rerum illo corrupti. Similique qui rem debitis. Accusamus et rerum sint et amet eos nemo. Et enim omnis et. Tempora et corrupti aut ea et vel. \n Dolor est quae sed molestiae nisi esse aliquid atque. Voluptas vero et ducimus voluptatem in eaque. Quo illum et delectus vel sed molestias quidem. Consequuntur unde dolores quis sunt exercitationem eos et provident. Animi eaque temporibus alias. %d", i),
-			Slides:        "./uploads/black.png",
-			Nickname:      nicknames[rand.Intn(len(nicknames))],
-			Date:          time.Now(),
->>>>>>> refs/remotes/origin/master
 			FormattedDate: formattedDate,
 			Upcoming:      true,
 		}
