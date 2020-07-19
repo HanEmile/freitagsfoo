@@ -1,3 +1,6 @@
+
+[![Build Status](https://drone.darknebu.la/api/badges/chaosdorf/freitagsfoo/status.svg)](https://drone.darknebu.la/chaosdorf/freitagsfoo)
+
 # Freitagsfoo! (AAS)
 
 Super basic piece of Software for handling talk submissions.
