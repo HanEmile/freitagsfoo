@@ -2,7 +2,7 @@
 
 Super basic piece of Software for handling talk submissions.
 
-![](./imgs/frontpage.png)
+![image showing the frontpage](./imgs/frontpage.png)
 
 ## Usage
 
