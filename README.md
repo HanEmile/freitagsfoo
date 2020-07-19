@@ -2,6 +2,8 @@
 
 Super basic piece of Software for handling talk submissions.
 
+![](./imgs/frontpage.png)
+
 ## Usage
 
 Well, It's pretty straitfowards…
