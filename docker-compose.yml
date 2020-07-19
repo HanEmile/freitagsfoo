@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  freitagsfoo:
+    build: .
+    ports:
+      - "8085:8085"
+    volumes:
+      - "./config.yml:/config.yml"
+    depends_on:
+      - postgres
+    networks:
+      - database
+
+  postgres:
+    image: postgres:12.1
+    hostname: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_volume:/var/lib/postgresql
+    networks:
+      - database
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    ports:
+      - "5555:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+    restart: unless-stopped
+    networks:
+      - database
+
+volumes:
+  postgres_volume: {}
+
+networks:
+  database:
