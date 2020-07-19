@@ -2,11 +2,8 @@
 
 Super basic piece of Software for handling talk submissions.
 
-<<<<<<< HEAD
-=======
 ![](./imgs/frontpage.png)
 
->>>>>>> refs/remotes/origin/master
 ## Usage
 
 Well, It's pretty straitfowards…
