@@ -17,7 +17,7 @@ steps:
   settings:
       tags:
         - latest
-      repo: registry.darknebu.la/chaosdorf/freitagsfoo
+      repo: registry.darknebu.la/emile/chaosdorf-freitagsfoo
       registry: registry.darknebu.la
       username:
         from_secret: docker_username
