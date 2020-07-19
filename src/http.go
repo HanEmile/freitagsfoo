@@ -19,6 +19,7 @@ func initHTTPServer() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", indexHandler).Methods("GET")
 	r.HandleFunc("/upcoming", upcomingHandler).Methods("GET")
+	r.HandleFunc("/past", pastHandler).Methods("GET")
 	r.HandleFunc("/propose", proposeHandler).Methods("GET")
 	r.HandleFunc("/talk/{uuid}", talkHandler).Methods("GET")
 
@@ -59,8 +60,19 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		logrus.Warn(err)
 		return
 	}
+	// fetch the last three talks
+	lastThreeTalks, err := db.PastTalksLimited(pgdb)
+	if err != nil {
+		logrus.Warn(err)
+		return
+	}
 
 	upcomingCount, err := db.CountUpcomingTalks(pgdb)
+	if err != nil {
+		logrus.Warn(err)
+		return
+	}
+	pastCount, err := db.CountPastTalks(pgdb)
 	if err != nil {
 		logrus.Warn(err)
 		return
@@ -69,7 +81,11 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	content := map[string]interface{}{
 		"upcomingTalks": firstThreeTalks,
 		"upcomingCount": upcomingCount,
-		"All":           false,
+
+		"pastTalks": lastThreeTalks,
+		"pastCount": pastCount,
+
+		"All": false,
 	}
 
 	// define a template
@@ -92,7 +108,7 @@ func upcomingHandler(w http.ResponseWriter, r *http.Request) {
 	defer db.Disconnect(pgdb)
 
 	// fetch the next talks
-	firstThreeTalks, err := db.UpcomingTalks(pgdb)
+	upcomingTalks, err := db.UpcomingTalks(pgdb)
 	if err != nil {
 		logrus.Warn(err)
 		return
@@ -105,7 +121,7 @@ func upcomingHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	content := map[string]interface{}{
-		"upcomingTalks": firstThreeTalks,
+		"upcomingTalks": upcomingTalks,
 		"upcomingCount": upcomingCount,
 		"All":           true,
 	}
@@ -120,6 +136,44 @@ func upcomingHandler(w http.ResponseWriter, r *http.Request) {
 
 	// execute the template
 	err = t.ExecuteTemplate(w, "upcoming", content)
+	if err != nil {
+		logrus.Warn(err)
+	}
+}
+
+func pastHandler(w http.ResponseWriter, r *http.Request) {
+	pgdb := db.Connect()
+	defer db.Disconnect(pgdb)
+
+	// fetch the next talks
+	pastTalks, err := db.PastTalks(pgdb)
+	if err != nil {
+		logrus.Warn(err)
+		return
+	}
+
+	pastCount, err := db.CountPastTalks(pgdb)
+	if err != nil {
+		logrus.Warn(err)
+		return
+	}
+
+	content := map[string]interface{}{
+		"pastTalks": pastTalks,
+		"pastCount": pastCount,
+		"All":       true,
+	}
+
+	// define a template
+	t := template.New("")
+	t, err = t.ParseGlob("./hosted/tmpl/*.html")
+	if err != nil {
+		logrus.Warn(err)
+		return
+	}
+
+	// execute the template
+	err = t.ExecuteTemplate(w, "past", content)
 	if err != nil {
 		logrus.Warn(err)
 	}

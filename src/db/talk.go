@@ -2,6 +2,7 @@ package db
 
 import (
 	"fmt"
+	"time"
 
 	"git.darknebu.la/chaosdorf/freitagsfoo/src/structs"
 	pg "github.com/go-pg/pg/v9"
@@ -21,7 +22,7 @@ func InsertTalk(db *pg.DB, talk *structs.Talk) error {
 // UpcomingTalksLimited returns the next 3 upcoming talks
 func UpcomingTalksLimited(db *pg.DB) ([]structs.Talk, error) {
 	var talks []structs.Talk
-	err := db.Model(&talks).Order("id DESC").Limit(3).Select()
+	err := db.Model(&talks).Order("date DESC").Where("date > ?", time.Now()).Limit(3).Select()
 	if err != nil {
 		return []structs.Talk{}, fmt.Errorf("could not get the talks from the db: %s", err)
 	}
@@ -32,7 +33,29 @@ func UpcomingTalksLimited(db *pg.DB) ([]structs.Talk, error) {
 // UpcomingTalks returns the next upcoming talks
 func UpcomingTalks(db *pg.DB) ([]structs.Talk, error) {
 	var talks []structs.Talk
-	err := db.Model(&talks).Order("id DESC").Select()
+	err := db.Model(&talks).Order("date DESC").Where("date > ?", time.Now()).Select()
+	if err != nil {
+		return []structs.Talk{}, fmt.Errorf("could not get the talks from the db: %s", err)
+	}
+
+	return talks, nil
+}
+
+// PastTalksLimited returns the past 3 talks
+func PastTalksLimited(db *pg.DB) ([]structs.Talk, error) {
+	var talks []structs.Talk
+	err := db.Model(&talks).Order("date DESC").Where("date < ?", time.Now()).Limit(3).Select()
+	if err != nil {
+		return []structs.Talk{}, fmt.Errorf("could not get the talks from the db: %s", err)
+	}
+
+	return talks, nil
+}
+
+// PastTalks returns the next upcoming talks
+func PastTalks(db *pg.DB) ([]structs.Talk, error) {
+	var talks []structs.Talk
+	err := db.Model(&talks).Order("date DESC").Where("date < ?", time.Now()).Select()
 	if err != nil {
 		return []structs.Talk{}, fmt.Errorf("could not get the talks from the db: %s", err)
 	}
@@ -42,9 +65,19 @@ func UpcomingTalks(db *pg.DB) ([]structs.Talk, error) {
 
 // CountUpcomingTalks counts the amount of talks upcoming
 func CountUpcomingTalks(db *pg.DB) (int, error) {
-
 	var talks []structs.Talk
-	count, err := db.Model(&talks).Where("upcoming = ?", true).SelectAndCount()
+	count, err := db.Model(&talks).Where("date > ?", time.Now()).Where("upcoming = ?", true).SelectAndCount()
+	if err != nil {
+		return -1, fmt.Errorf("could not get the talks from the db: %s", err)
+	}
+
+	return count, nil
+}
+
+// CountPastTalks counts the amount of past talks
+func CountPastTalks(db *pg.DB) (int, error) {
+	var talks []structs.Talk
+	count, err := db.Model(&talks).Where("date < ?", time.Now()).SelectAndCount()
 	if err != nil {
 		return -1, fmt.Errorf("could not get the talks from the db: %s", err)
 	}

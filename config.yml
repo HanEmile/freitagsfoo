@@ -1,6 +1,6 @@
 # logging verbosity leve (1-7) 1=panic, 7=trace
 verbose:
-    level: 6
+    level: 7
 
 # Host information (ip to bind to and port to listen on)
 server:
@@ -9,7 +9,7 @@ server:
 
 # The database that should be accessed 
 db:
-    addr: "postgres:5432"
+    addr: "localhost:5432"
     user: "postgres"
     password: "postgres"
     database: "postgres"
